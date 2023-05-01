@@ -1,9 +1,5 @@
 package didplc
 
-import (
-	"strings"
-)
-
 // DocURI returns the URI used to resolve a DID Placeholder (ex: "did:plc:abcde12345") into a DID document.
 //
 // DocURI returns an empty string it what it is given is not an DID Placeholder.
@@ -21,7 +17,7 @@ import (
 // Having a single gateway to resolve DID Placeholder URIs into DID Documents
 // is very much NOT decentralized!
 func DocURI(did string) string {
-	if !strings.HasPrefix(did, "did:plc:") {
+	if !IsDIDPlaceholder(did) {
 		return ""
 	}
 
