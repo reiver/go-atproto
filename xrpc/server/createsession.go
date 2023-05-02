@@ -14,6 +14,11 @@ import (
 )
 
 const (
+	errNilHttpResponse = fck.Error("nil *http.Response")
+	errNilReceiver     = fck.Error("nil receiver")
+)
+
+const (
 	errIdentifierNotFound = fck.Error("identifier not found")
 	errPasswordNotFound   = fck.Error("password not found")
 )
@@ -103,4 +108,59 @@ func (receiver CreateSession) NewHTTPRequest(serviceEndpoint string) (*http.Requ
 	}
 
 	return httpreq, nil
+}
+
+type CreateSessionResponse struct {
+	DID    opt.Optional[string]
+	EMail  opt.Optional[string]
+	Handle opt.Optional[string]
+	AccessJWT  opt.Optional[string]
+	RefreshJWT opt.Optional[string]
+}
+
+func (receiver *CreateSessionResponse) Load(data map[string]string) {
+
+	if value, found := data["did"]; found {
+		receiver.DID = opt.Something[string](value)
+	}
+	if value, found := data["email"]; found {
+		receiver.EMail = opt.Something[string](value)
+	}
+	if value, found := data["handle"]; found {
+		receiver.Handle = opt.Something[string](value)
+	}
+	if value, found := data["accessJwt"]; found {
+		receiver.AccessJWT = opt.Something[string](value)
+	}
+	if value, found := data["refreshJwt"]; found {
+		receiver.RefreshJWT = opt.Something[string](value)
+	}
+
+}
+
+func (receiver *CreateSessionResponse) ConsumeHTTPResponse(httpresp *http.Response) error {
+	if nil == receiver {
+		return errNilReceiver
+	}
+	if nil == httpresp {
+		return errNilHttpResponse
+	}
+
+	if http.StatusOK != httpresp.StatusCode {
+		return fck.Errorf("atproto: problem with HTTP request, HTTP status-code not 200 — %s", httpresp.Status)
+	}
+
+	var data map[string]string
+	{
+		defer httpresp.Body.Close()
+
+		err := json.NewDecoder(httpresp.Body).Decode(&data)
+		if nil != err {
+			return fmt.Errorf("atproto: problem parsing JSON in response: %w", err)
+		}
+	}
+
+	receiver.Load(data)
+
+	return nil
 }
