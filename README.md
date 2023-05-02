@@ -24,7 +24,7 @@ var domainname string = "example.com"
 
 dids, err := atdomain.LookupDID(domainname)
 if nil != err {
-		return err
+	return err
 }
 
 // ...
