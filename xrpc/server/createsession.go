@@ -45,7 +45,7 @@ const (
 //		}
 //	}
 //	
-//	var httpres *http.Response
+//	var httpresp *http.Response
 //	{
 //		var httpclient http.Client
 //		
@@ -53,6 +53,16 @@ const (
 //		
 //		httpresp, err =  httpclient.Do(httpreq)
 //	}
+//	
+//	var resp xrpcserver.CreateSessionResponse
+//	{
+//		err := resp.ConsumeHTTPResponse(httpresp)
+//		if nil != err {
+//			return err
+//		}
+//	}
+//	
+//	// resp.AccessJWT
 type CreateSession struct {
 	Identifier opt.Optional[string]
 	Password   opt.Optional[string]
