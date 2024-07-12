@@ -41,3 +41,21 @@ if nil != err {
 }
 
 ```
+
+## Import
+
+To import package **atproto** use `import` code like the follownig:
+```
+import "github.com/reiver/go-atproto"
+```
+
+## Installation
+
+To install package **atproto** do the following:
+```
+GOPROXY=direct go get https://github.com/reiver/go-atproto
+```
+
+## Author
+
+Package **atproto** was written by [Charles Iliya Krempeaux](http://reiver.link)
