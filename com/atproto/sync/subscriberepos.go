@@ -6,6 +6,9 @@ import (
 	"github.com/reiver/go-atproto/internal/config"
 )
 
+// SubscribeRepos calls XRPC "com.atproto.sync.subscribeRepos".
+//
+// Decode into [SubscriptionMessage].
 func SubscribeRepos() (xrpc.Iterator, error) {
 	const nsid string = "com.atproto.sync.subscribeRepos"
 
