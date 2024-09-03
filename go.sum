@@ -236,8 +236,8 @@ github.com/reiver/go-opt v0.0.0-20240704165441-4ce81358adfc h1:9ARo75fNaZDaGy6zz
 github.com/reiver/go-opt v0.0.0-20240704165441-4ce81358adfc/go.mod h1:Yu6dFKh0IZ0evP9U5QiBlxBa5BhlBzGEn7EZ1kP/pkA=
 github.com/reiver/go-strfs v0.0.0-20240825123104-a22d8dfd04d4 h1:+jwuqCDWORvXNDTMa9DQ5dEd9u/jOpj4XqGVG/B5E1w=
 github.com/reiver/go-strfs v0.0.0-20240825123104-a22d8dfd04d4/go.mod h1:WH8mfjs3Mpv2+U7cDIuQieN9opUoD4AuwPqn8M8EtKA=
-github.com/reiver/go-xrpc v0.0.0-20240903161842-92480e56fa09 h1:W5vADT45ndZidmz4OeYPrN2sDj2YPJeU3GsaIA8w4xE=
-github.com/reiver/go-xrpc v0.0.0-20240903161842-92480e56fa09/go.mod h1:HBs8rxgoUONFIB/kZwHrbMF0kArewgLvn9yFg6Py0pA=
+github.com/reiver/go-xrpc v0.0.0-20240903174530-2b704013227f h1:Zh/0N7tnrEEN8S/e7XdJJIKaJppCSdPEODapUMVPgxk=
+github.com/reiver/go-xrpc v0.0.0-20240903174530-2b704013227f/go.mod h1:HBs8rxgoUONFIB/kZwHrbMF0kArewgLvn9yFg6Py0pA=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.9.0 h1:73kH8U+JUqXU8lRuOHeVHaa/SZPifC7BkcraZVejAe8=
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
