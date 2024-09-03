@@ -5,6 +5,10 @@ const (
 )
 
 const (
+	CreateRecordHost  = "bsky.social"
 	CreateSessionHost = "bsky.social"
+)
+
+const (
 	FireHoseHost      = "bsky.network"
 )
