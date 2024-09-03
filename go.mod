@@ -8,7 +8,7 @@ require (
 	github.com/ipld/go-car v0.6.2
 	github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
 	github.com/reiver/go-opt v0.0.0-20240704165441-4ce81358adfc
-	github.com/reiver/go-xrpc v0.0.0-20240827191410-fe80188780d7
+	github.com/reiver/go-xrpc v0.0.0-20240903161842-92480e56fa09
 	golang.org/x/net v0.27.0
 )
 
@@ -51,6 +51,8 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/polydawn/refmt v0.89.0 // indirect
 	github.com/reiver/go-errhttp v1.1.1-0.20240827033330-e4ea888843cc // indirect
+	github.com/reiver/go-json v0.0.0-20240828120501-c8794288440c // indirect
+	github.com/reiver/go-lck v0.0.0-20240808133902-b56df221c39f // indirect
 	github.com/reiver/go-nsid v0.0.0-20240827010024-502157631805 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/whyrusleeping/cbor-gen v0.0.0-20230126041949-52956bd4c9aa // indirect

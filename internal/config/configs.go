@@ -1,5 +1,6 @@
 package config
 
 const (
-	FireHoseHost = "bsky.network"
+	CreateSessionHost = "bsky.social"
+	FireHoseHost      = "bsky.network"
 )
