@@ -10,6 +10,8 @@ import (
 //
 // I.e., it lets you login to Bluesky / AT-protocol.
 //
+// I.e., NSID = com.atproto.server.createSession
+//
 // Example usage:
 //
 //	import "github.com/reiver/go-atproto/com/atproto/server"
