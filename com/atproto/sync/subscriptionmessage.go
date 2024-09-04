@@ -67,3 +67,17 @@ func (receiver SubscriptionMessage) Decode(header *SubscriptionMessageHeader, pa
 	return nil
 }
 
+func (receiver SubscriptionMessage) Payload(payload *SubscriptionMessagePayload) error {
+	if nil == receiver {
+		return errNilReceiver
+	}
+
+	if nil == payload {
+		return errNilSubscriptionMessagePayload
+	}
+
+	var header SubscriptionMessageHeader
+
+	return receiver.Decode(&header, payload)
+}
+
