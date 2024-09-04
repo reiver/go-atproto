@@ -59,7 +59,10 @@ func SubscribeRepos() (iter.Iterator, error) {
 
 				values, found := payload[name]
 				if !found {
-					return nil, errNoBlocks
+					
+//					return nil, errNoBlocks
+					
+					return reiver_iter.Empty, nil
 				}
 
 				var casted bool
