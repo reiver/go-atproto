@@ -3,6 +3,8 @@ package car
 import (
 	ipld_car "github.com/ipld/go-car"
 	"github.com/reiver/go-erorr"
+
+	"github.com/reiver/go-atproto/iter"
 )
 
 // Iterator turns a *car.CarReader from packag "github.com/ipld/go-car" into an iterator.
@@ -14,6 +16,8 @@ type Iterator struct {
 	err error
 	rawData []byte
 }
+
+var _ iter.Iterator = &Iterator{}
 
 func (receiver *Iterator) Close() error {
 	if nil == receiver {
