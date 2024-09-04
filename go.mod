@@ -7,6 +7,7 @@ require (
 	github.com/fxamacker/cbor/v2 v2.7.0
 	github.com/ipld/go-car v0.6.2
 	github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
+	github.com/reiver/go-iter v0.0.0-20240904212921-4560184e95e6
 	github.com/reiver/go-opt v0.0.0-20240704165441-4ce81358adfc
 	github.com/reiver/go-xrpc v0.0.0-20240903174530-2b704013227f
 	golang.org/x/net v0.27.0
