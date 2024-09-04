@@ -11,10 +11,10 @@ import (
 // The message that comes back from the Bluesky Firehose websocket is 2 CBOR objects concatenated with each other.
 // The first part is called the message-header. The second part is called the message-payload.
 //
-// SubscriptionMessagePayload represents the message-payload.
-type SubscriptionMessagePayload map[string]any
+// internalSubscriptionMessagePayload represents the message-payload.
+type internalSubscriptionMessagePayload map[string]any
 
-func (receiver SubscriptionMessagePayload) Blocks() (*car.CarReader, error) {
+func (receiver internalSubscriptionMessagePayload) Blocks() (*car.CarReader, error) {
 	const name string = "blocks"
 
 	if nil == receiver {
@@ -53,7 +53,7 @@ func (receiver SubscriptionMessagePayload) Blocks() (*car.CarReader, error) {
 	return carreader, nil
 }
 
-func (receiver SubscriptionMessagePayload) Rebase() (bool, bool) {
+func (receiver internalSubscriptionMessagePayload) Rebase() (bool, bool) {
 	const name string = "rebase"
 	var empty bool
 
@@ -74,7 +74,7 @@ func (receiver SubscriptionMessagePayload) Rebase() (bool, bool) {
 	}
 }
 
-func (receiver SubscriptionMessagePayload) Rev() (string, bool) {
+func (receiver internalSubscriptionMessagePayload) Rev() (string, bool) {
 	const name string = "rev"
 	var empty string
 
@@ -95,7 +95,7 @@ func (receiver SubscriptionMessagePayload) Rev() (string, bool) {
 	}
 }
 
-func (receiver SubscriptionMessagePayload) Seq() (int, bool) {
+func (receiver internalSubscriptionMessagePayload) Seq() (int, bool) {
 	const name string = "seq"
 	var empty int
 
@@ -116,7 +116,7 @@ func (receiver SubscriptionMessagePayload) Seq() (int, bool) {
 	}
 }
 
-func (receiver SubscriptionMessagePayload) Since() (string, bool) {
+func (receiver internalSubscriptionMessagePayload) Since() (string, bool) {
 	const name string = "since"
 	var empty string
 
@@ -137,7 +137,7 @@ func (receiver SubscriptionMessagePayload) Since() (string, bool) {
 	}
 }
 
-func (receiver SubscriptionMessagePayload) TooBig() (bool, bool) {
+func (receiver internalSubscriptionMessagePayload) TooBig() (bool, bool) {
 	const name string = "tooBig"
 	var empty bool
 
@@ -158,7 +158,7 @@ func (receiver SubscriptionMessagePayload) TooBig() (bool, bool) {
 	}
 }
 
-func (receiver SubscriptionMessagePayload) Time() (string, bool) {
+func (receiver internalSubscriptionMessagePayload) Time() (string, bool) {
 	const name string = "time"
 	var empty string
 

@@ -1,9 +1,9 @@
 package sync
 
-// Operation is the type for the 'Operation' field of [SubscriptionMessageHeader].
-type Operation int64
+// internalOperation is the type for the 'Operation' field of [internalSubscriptionMessageHeader].
+type internalOperation int64
 
 const (
-	OperationRegular Operation = 1
-	OperationError   Operation = -1
+	internalOperationRegular internalOperation = 1
+	internalOperationError   internalOperation = -1
 )

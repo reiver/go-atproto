@@ -1,6 +1,7 @@
 package sync
 
 import (
+	"github.com/reiver/go-erorr"
 	reiver_iter "github.com/reiver/go-iter"
 	"github.com/reiver/go-xrpc"
 
@@ -11,7 +12,7 @@ import (
 
 // SubscribeRepos calls XRPC "com.atproto.sync.subscribeRepos".
 //
-// Decode into [SubscriptionMessage].
+// Decode into a map[string]any or an appropriate struct.
 func SubscribeRepos() (iter.Iterator, error) {
 	const nsid string = "com.atproto.sync.subscribeRepos"
 
@@ -20,11 +21,13 @@ func SubscribeRepos() (iter.Iterator, error) {
                 NSID: nsid,
         }
 
+	var url string = xrpcURL.String()
+
 	var xrpcIterator xrpc.Iterator
 	{
 		var err error
 
-		xrpcIterator, err = xrpc.Subscribe(xrpcURL.String())
+		xrpcIterator, err = xrpc.Subscribe(url)
 		if nil != err {
 			return nil, err
 		}
@@ -36,7 +39,37 @@ func SubscribeRepos() (iter.Iterator, error) {
 	var iterators reiver_iter.Iterators
 	{
 		fn := func(value []byte) (reiver_iter.Iterator, error) {
-			iterator, err := car.NewIteratorFromBytes(value)
+			var msg internalSubscriptionMessage = internalSubscriptionMessage(value)
+
+			var header  internalSubscriptionMessageHeader
+			var payload internalSubscriptionMessagePayload
+
+			err := msg.Decode(&header, &payload)
+			if nil != err {
+                                return nil, erorr.Errorf("atproto: problem decoding a single message from nsid=%q: %w", nsid, err)
+			}
+
+			var blocks []byte
+			{
+				const name string = "blocks"
+
+				if nil == payload {
+					return nil, errNilPayload
+				}
+
+				values, found := payload[name]
+				if !found {
+					return nil, errNoBlocks
+				}
+
+				var casted bool
+				blocks, casted = values.([]byte)
+				if !casted {
+					return nil, errBlocksNotBytes
+				}
+			}
+
+			iterator, err := car.NewIteratorFromBytes(blocks)
 			return iterator, err
 		}
 
@@ -50,6 +83,8 @@ func SubscribeRepos() (iter.Iterator, error) {
 	{
 		var flattenedIterator reiver_iter.FlattenedIterator
 		flattenedIterator.Iterators = iterators
+
+		iterator = &flattenedIterator
 	}
 
         return iterator, nil

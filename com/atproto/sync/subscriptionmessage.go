@@ -10,11 +10,11 @@ import (
 	"github.com/reiver/go-erorr"
 )
 
-// SubscriptionMessage represents a message from the Bluesky Firehose websocket.
-type SubscriptionMessage []byte
+// internalSubscriptionMessage represents a message from the Bluesky Firehose websocket.
+type internalSubscriptionMessage []byte
 
 // Decode decodes the message from the Bluesky Firehose websocket into the message-header and the message-payload.
-func (receiver SubscriptionMessage) Decode(header *SubscriptionMessageHeader, payload *SubscriptionMessagePayload) error {
+func (receiver internalSubscriptionMessage) Decode(header *internalSubscriptionMessageHeader, payload *internalSubscriptionMessagePayload) error {
 
 	//@TODO: This is NOT an ideal way of decoding this.
 	//       Maybe implement a CBOR codec later to do this better.
@@ -67,7 +67,7 @@ func (receiver SubscriptionMessage) Decode(header *SubscriptionMessageHeader, pa
 	return nil
 }
 
-func (receiver SubscriptionMessage) Payload(payload *SubscriptionMessagePayload) error {
+func (receiver internalSubscriptionMessage) Payload(payload *internalSubscriptionMessagePayload) error {
 	if nil == receiver {
 		return errNilReceiver
 	}
@@ -76,7 +76,7 @@ func (receiver SubscriptionMessage) Payload(payload *SubscriptionMessagePayload)
 		return errNilSubscriptionMessagePayload
 	}
 
-	var header SubscriptionMessageHeader
+	var header internalSubscriptionMessageHeader
 
 	return receiver.Decode(&header, payload)
 }
