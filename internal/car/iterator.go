@@ -114,6 +114,9 @@ func (receiver *Iterator) Next() bool {
 	}
 
 	block, err := carReader.Next()
+	if io.EOF == err || erorr.Is(err, io.EOF) {
+		return false
+	}
 	if nil != err {
 		receiver.err = err
 		return false
