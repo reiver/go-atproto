@@ -1,7 +1,6 @@
 package sync
 
 import (
-	"github.com/reiver/go-erorr"
 	reiver_iter "github.com/reiver/go-iter"
 	"github.com/reiver/go-xrpc"
 
@@ -46,7 +45,7 @@ func SubscribeRepos() (iter.Iterator, error) {
 
 			err := msg.Decode(&header, &payload)
 			if nil != err {
-                                return nil, erorr.Errorf("atproto: problem decoding a single message from nsid=%q: %w", nsid, err)
+				return reiver_iter.Empty, nil
 			}
 
 			var blocks []byte
@@ -54,21 +53,18 @@ func SubscribeRepos() (iter.Iterator, error) {
 				const name string = "blocks"
 
 				if nil == payload {
-					return nil, errNilPayload
+					return reiver_iter.Empty, nil
 				}
 
 				values, found := payload[name]
 				if !found {
-					
-//					return nil, errNoBlocks
-					
 					return reiver_iter.Empty, nil
 				}
 
 				var casted bool
 				blocks, casted = values.([]byte)
 				if !casted {
-					return nil, errBlocksNotBytes
+					return reiver_iter.Empty, nil
 				}
 			}
 
