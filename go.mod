@@ -9,7 +9,7 @@ require (
 	github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
 	github.com/reiver/go-iter v0.0.0-20240905151209-3c956dd37a9f
 	github.com/reiver/go-opt v0.0.0-20240704165441-4ce81358adfc
-	github.com/reiver/go-reg v0.0.0-20240906162828-c83b1046a0bc
+	github.com/reiver/go-reg v0.0.0-20240906163928-ffe2cb922999
 	github.com/reiver/go-xrpc v0.0.0-20240905133829-2de40c4662d8
 	golang.org/x/net v0.27.0
 )
