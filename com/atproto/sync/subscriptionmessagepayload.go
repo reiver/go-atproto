@@ -74,6 +74,27 @@ func (receiver internalSubscriptionMessagePayload) Rebase() (bool, bool) {
 	}
 }
 
+func (receiver internalSubscriptionMessagePayload) Repo() (string, bool) {
+	const name string = "repo"
+	var empty string
+
+	if nil == receiver {
+		return empty, false
+	}
+
+	value, found := receiver[name]
+	if !found {
+		return empty, false
+	}
+
+	switch casted := value.(type) {
+	case string:
+		return casted, true
+	default:
+		return empty,  false
+	}
+}
+
 func (receiver internalSubscriptionMessagePayload) Rev() (string, bool) {
 	const name string = "rev"
 	var empty string
