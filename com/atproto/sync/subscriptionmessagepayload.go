@@ -116,9 +116,9 @@ func (receiver internalSubscriptionMessagePayload) Rev() (string, bool) {
 	}
 }
 
-func (receiver internalSubscriptionMessagePayload) Seq() (int, bool) {
+func (receiver internalSubscriptionMessagePayload) Seq() (uint64, bool) {
 	const name string = "seq"
-	var empty int
+	var empty uint64
 
 	if nil == receiver {
 		return empty, false
@@ -130,7 +130,7 @@ func (receiver internalSubscriptionMessagePayload) Seq() (int, bool) {
 	}
 
 	switch casted := value.(type) {
-	case int:
+	case uint64:
 		return casted, true
 	default:
 		return empty,  false
