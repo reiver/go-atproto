@@ -10,4 +10,4 @@ An implementation of the (deprecated) [`com.atproto.simplespace`](https://github
 | `com.atproto.simplespace.getSpace`     | query     | Describe a space and its configuration.                              |
 | `com.atproto.simplespace.putMember`    | procedure | Add a member (by DID) or update their read and write access.         |
 | `com.atproto.simplespace.removeMember` | procedure | Remove a member (by DID).                                            |
-| `com.atproto.simplespace.removeMember` | query     | List the current members of a space and their read and write access. |
+| `com.atproto.simplespace.listMembers`  | query     | List the current members of a space and their read and write access. |
