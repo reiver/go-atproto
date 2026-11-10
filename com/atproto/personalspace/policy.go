@@ -1,5 +1,13 @@
 package personalspace
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// NSID is the Namespaced Identifier for the personal space policy.
+const NSID string = "com.atproto.personalspace.policy"
+
 // Policy defines a space policy for confidential user data.
 // This is the simplest policy type - only the space authority's own account is authorized to read, and the authority tracks no other writers.
 //
@@ -26,12 +34,12 @@ package personalspace
 //
 //	import (
 //		"github.com/reiver/go-atproto/com/atproto/personalspace"
-//		"github.com/reiver/ggo-atproto/com/atproto/space"
+//		"github.com/reiver/go-atproto/com/atproto/space"
 //	)
-//	
+//
 //	// Create a personal space for private bookmarks
 //	policy := personalspace.Policy{}
-//	
+//
 //	var resp space.CreateSpaceResponse
 //	err := space.CreateSpace(
 //		&resp,
@@ -59,22 +67,36 @@ package personalspace
 // Since this policy grants access only to the owner, attempting to use
 // membership-related operations (putMember, removeMember, listMembers)
 // on a personal space will fail with PolicyMismatch error.
-type Policy struct {
-	// Type is the lexicon type identifier.
-	// This should always be "com.atproto.personalspace.policy" when serialized.
-	Type string `json:"$type,omitempty"`
+//
+// The $type field is automatically handled during JSON marshaling/unmarshaling.
+type Policy struct{}
+
+// MarshalJSON implements json.Marshaler.
+// It automatically includes the $type field set to "com.atproto.personalspace.policy".
+func (Policy) MarshalJSON() ([]byte, error) {
+	type wireFormat struct {
+		Type string `json:"$type"`
+	}
+	return json.Marshal(wireFormat{
+		Type: NSID,
+	})
 }
 
-// NewPolicy creates a new personal space policy.
-//
-// # Example
-//
-//	policy := personalspace.NewPolicy()
-//	
-//	var resp space.CreateSpaceResponse
-//	err := space.CreateSpace(&resp, host, token, "app.bsky.bookmarks", "self", policy)
-func NewPolicy() Policy {
-	return Policy{
-		Type: "com.atproto.personalspace.policy",
+// UnmarshalJSON implements json.Unmarshaler.
+// It validates that the $type field is "com.atproto.personalspace.policy".
+func (p *Policy) UnmarshalJSON(data []byte) error {
+	type wireFormat struct {
+		Type string `json:"$type"`
 	}
+
+	var wire wireFormat
+	if err := json.Unmarshal(data, &wire); err != nil {
+		return fmt.Errorf("personalspace.Policy: failed to unmarshal: %w", err)
+	}
+
+	if wire.Type != NSID {
+		return fmt.Errorf("personalspace.Policy: unexpected $type: got %q, want %q", wire.Type, NSID)
+	}
+
+	return nil
 }

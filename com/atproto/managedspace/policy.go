@@ -1,5 +1,13 @@
 package managedspace
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// NSID is the Namespaced Identifier for the managed space policy.
+const NSID string = "com.atproto.managedspace.policy"
+
 // Policy defines a space policy that defers each user access decision
 // to an external managing app via CheckUserAccess requests.
 //
@@ -74,41 +82,54 @@ package managedspace
 //
 // The managing app must implement the CheckUserAccess endpoint to
 // respond to access queries from the space authority.
+//
+// The $type field is automatically handled during JSON marshaling/unmarshaling.
 type Policy struct {
-	// Type is the lexicon type identifier.
-	// This should always be "com.atproto.managedspace.policy" when serialized.
-	Type string `json:"$type,omitempty"`
-
 	// ManagingApp is the service identifier of the managing app.
 	// This is a DID with an optional service fragment, e.g., "did:web:example.com#forum".
 	// The space authority will call CheckUserAccess on this service
 	// to determine whether to grant access to each user.
 	// Required.
-	ManagingApp string `json:"managingApp"`
+	ManagingApp string
 
 	// PublishPolicy controls whether the policy is published as a record.
 	// When true, the policy is written as a com.atproto.space.policy record
 	// in the authority's repo, allowing syncers to view governance rules.
 	// Default: false
-	PublishPolicy bool `json:"publishPolicy,omitempty"`
+	PublishPolicy bool
 }
 
-// NewPolicy creates a new managed space policy with the specified managing app.
-//
-// # Parameters
-//
-// The 'managingApp' parameter is the service identifier that will make access decisions.
-// This should be a DID, optionally with a service fragment (e.g., "did:web:example.com#forum").
-//
-// # Example
-//
-//	policy := managedspace.NewPolicy("did:web:game.example.com#state")
-//	
-//	var resp space.CreateSpaceResponse
-//	err := space.CreateSpace(&resp, host, token, "com.example.game", "data", policy)
-func NewPolicy(managingApp string) Policy {
-	return Policy{
-		Type:        "com.atproto.managedspace.policy",
-		ManagingApp: managingApp,
+// internalPolicy is the JSON wire format for Policy.
+type internalPolicy struct {
+	Type          string `json:"$type"`
+	ManagingApp   string `json:"managingApp"`
+	PublishPolicy bool   `json:"publishPolicy,omitempty"`
+}
+
+// MarshalJSON implements json.Marshaler.
+// It automatically includes the $type field set to "com.atproto.managedspace.policy".
+func (p Policy) MarshalJSON() ([]byte, error) {
+	return json.Marshal(internalPolicy{
+		Type:          NSID,
+		ManagingApp:   p.ManagingApp,
+		PublishPolicy: p.PublishPolicy,
+	})
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+// It validates that the $type field is "com.atproto.managedspace.policy".
+func (p *Policy) UnmarshalJSON(data []byte) error {
+	var wire internalPolicy
+	if err := json.Unmarshal(data, &wire); err != nil {
+		return fmt.Errorf("managedspace.Policy: failed to unmarshal: %w", err)
 	}
+
+	if wire.Type != NSID {
+		return fmt.Errorf("managedspace.Policy: unexpected $type: got %q, want %q", wire.Type, NSID)
+	}
+
+	p.ManagingApp = wire.ManagingApp
+	p.PublishPolicy = wire.PublishPolicy
+
+	return nil
 }
