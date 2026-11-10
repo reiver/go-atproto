@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-// NSID is the Namespaced Identifier for the managed space policy.
-const NSID string = "com.atproto.managedspace.policy"
+// nsid is the Namespaced Identifier for the managed space policy.
+const nsid string = "com.atproto.managedspace.policy"
 
 // Policy defines a space policy that defers each user access decision
 // to an external managing app via CheckUserAccess requests.
 //
-// NSID: com.atproto.managedspace.policy
+// nsid: com.atproto.managedspace.policy
 //
 // # Use Cases
 //
@@ -110,7 +110,7 @@ type internalPolicy struct {
 // It automatically includes the $type field set to "com.atproto.managedspace.policy".
 func (p Policy) MarshalJSON() ([]byte, error) {
 	return json.Marshal(internalPolicy{
-		Type:          NSID,
+		Type:          nsid,
 		ManagingApp:   p.ManagingApp,
 		PublishPolicy: p.PublishPolicy,
 	})
@@ -124,8 +124,8 @@ func (p *Policy) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("managedspace.Policy: failed to unmarshal: %w", err)
 	}
 
-	if wire.Type != NSID {
-		return fmt.Errorf("managedspace.Policy: unexpected $type: got %q, want %q", wire.Type, NSID)
+	if wire.Type != nsid {
+		return fmt.Errorf("managedspace.Policy: unexpected $type: got %q, want %q", wire.Type, nsid)
 	}
 
 	p.ManagingApp = wire.ManagingApp

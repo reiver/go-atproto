@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-// NSID is the Namespaced Identifier for the personal space policy.
-const NSID string = "com.atproto.personalspace.policy"
+// nsid is the Namespaced Identifier for the personal space policy.
+const nsid string = "com.atproto.personalspace.policy"
 
 // Policy defines a space policy for confidential user data.
 // This is the simplest policy type - only the space authority's own account is authorized to read, and the authority tracks no other writers.
 //
-// NSID: com.atproto.personalspace.policy
+// nsid: com.atproto.personalspace.policy
 //
 // # Use Cases
 //
@@ -78,7 +78,7 @@ func (Policy) MarshalJSON() ([]byte, error) {
 		Type string `json:"$type"`
 	}
 	return json.Marshal(wireFormat{
-		Type: NSID,
+		Type: nsid,
 	})
 }
 
@@ -94,8 +94,8 @@ func (p *Policy) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("personalspace.Policy: failed to unmarshal: %w", err)
 	}
 
-	if wire.Type != NSID {
-		return fmt.Errorf("personalspace.Policy: unexpected $type: got %q, want %q", wire.Type, NSID)
+	if wire.Type != nsid {
+		return fmt.Errorf("personalspace.Policy: unexpected $type: got %q, want %q", wire.Type, nsid)
 	}
 
 	return nil
