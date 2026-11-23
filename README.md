@@ -92,6 +92,7 @@ Package **atproto** was written by [Charles Iliya Krempeaux](http://reiver.link)
 * https://github.com/reiver/go-atproto
 * https://github.com/reiver/go-aturi
 * https://github.com/reiver/go-bsky
+* https://github.com/reiver/go-cbor
 * https://github.com/reiver/go-cid
 * https://github.com/reiver/go-did
 * https://github.com/reiver/go-didplc
