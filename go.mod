@@ -3,6 +3,8 @@ module github.com/reiver/go-atproto
 go 1.24.3
 
 require (
+	codeberg.org/reiver/go-erorr v0.0.0-20260509033006-5ff6fb3009f8
+	codeberg.org/reiver/go-field v0.0.0-20260509032856-5b4f754dc77e
 	github.com/brianolson/cbor_go v1.0.0
 	github.com/fxamacker/cbor/v2 v2.7.0
 	github.com/ipld/go-car v0.6.2
@@ -14,8 +16,6 @@ require (
 )
 
 require (
-	codeberg.org/reiver/go-erorr v0.0.0-20260509033006-5ff6fb3009f8 // indirect
-	codeberg.org/reiver/go-field v0.0.0-20260509032856-5b4f754dc77e // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
