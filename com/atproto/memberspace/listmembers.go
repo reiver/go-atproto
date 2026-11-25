@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // ListMembers lists the members of a space governed by the memberspace policy,
@@ -103,7 +104,7 @@ func ListMembers(dst any, host string, bearerToken string, req ListMembersReques
 		query = query + "&limit=" + url.QueryEscape(strconv.Itoa(req.Limit))
 	}
 
-	var requestURL string = xrpc.ConstructURL(host, nsid, query).String()
+	var requestURL string = xrpcuri.ConstructURL(host, nsid, query).String()
 
 	return xrpc.AuthorizedQuery(dst, bearerToken, requestURL)
 }

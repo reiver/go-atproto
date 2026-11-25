@@ -3,6 +3,7 @@ package sync
 import (
 	reiver_iter "github.com/reiver/go-iter"
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 
 	"github.com/reiver/go-atproto/internal/car"
 	"github.com/reiver/go-atproto/internal/config"
@@ -15,7 +16,7 @@ import (
 func SubscribeRepos() (iter.Iterator, error) {
 	const nsid string = "com.atproto.sync.subscribeRepos"
 
-        var xrpcURL xrpc.URL = xrpc.URL{
+        var xrpcURL xrpcuri.URL = xrpcuri.URL{
                 Host: config.FireHoseHost,
                 NSID: nsid,
         }

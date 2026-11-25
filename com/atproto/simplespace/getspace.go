@@ -4,6 +4,7 @@ import (
 	"net/url"
 
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // GetSpace describes a ATProto space and its configuration.
@@ -18,7 +19,7 @@ func GetSpace(dst any, host string, bearerToken string, space string) error {
 
 	var query string = "space=" + url.QueryEscape(space)
 
-	var requestURL string = xrpc.ConstructURL(host, nsid, query).String()
+	var requestURL string = xrpcuri.ConstructURL(host, nsid, query).String()
 
 	return xrpc.AuthorizedQuery(dst, bearerToken, requestURL)
 }

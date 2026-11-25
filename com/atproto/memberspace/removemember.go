@@ -2,6 +2,7 @@ package memberspace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // RemoveMember removes a member from the member list of a space governed by the memberspace policy.
@@ -76,7 +77,7 @@ func RemoveMember(host string, bearerToken string, req RemoveMemberRequest) erro
 
 	const nsid string = "com.atproto.memberspace.removeMember"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space": req.Space,

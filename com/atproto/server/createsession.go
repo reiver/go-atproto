@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 
 	"github.com/reiver/go-atproto/internal/config"
 )
@@ -33,7 +34,7 @@ func CreateSession(dst any, identifier string, password string) error {
 	const nsid string = "com.atproto.server.createSession"
 	const host string = config.CreateSessionHost
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]string{
 		"identifier":identifier,

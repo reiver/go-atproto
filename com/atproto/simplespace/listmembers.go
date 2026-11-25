@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // ListMembers lists the current members of an ATProto space and their read and write access.
@@ -27,7 +28,7 @@ func ListMembers(dst any, host string, bearerToken string, space string, cursor 
 		query = query + "&limit=" + url.QueryEscape(strconv.Itoa(limit))
 	}
 
-	var requestURL string = xrpc.ConstructURL(host, nsid, query).String()
+	var requestURL string = xrpcuri.ConstructURL(host, nsid, query).String()
 
 	return xrpc.AuthorizedQuery(dst, bearerToken, requestURL)
 }

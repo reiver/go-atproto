@@ -2,6 +2,7 @@ package repo
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 
 	"github.com/reiver/go-atproto/internal/config"
 )
@@ -11,7 +12,7 @@ func CreateRecord(dst any, bearerToken string, repoName string, collection strin
 	const nsid string = "com.atproto.repo.createRecord"
 	const host string = config.CreateRecordHost
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"repo":repoName,

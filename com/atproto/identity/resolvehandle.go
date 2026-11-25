@@ -4,6 +4,7 @@ import (
 	"net/url"
 
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 
 	"github.com/reiver/go-atproto/internal/config"
 )
@@ -15,7 +16,7 @@ func ResolveHandle(dst any, handle string) error {
 
 	var query string = "handle=" + url.QueryEscape(handle)
 
-	var url string = xrpc.ConstructURL(host, nsid, query).String()
+	var url string = xrpcuri.ConstructURL(host, nsid, query).String()
 
 	return xrpc.Query(dst, url)
 }

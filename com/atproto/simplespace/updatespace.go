@@ -2,6 +2,7 @@ package simplespace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // UpdateSpace updates the configuration of an existing space.
@@ -17,7 +18,7 @@ func UpdateSpace(dst any, host string, bearerToken string, space string, readPol
 
 	const nsid string = "com.atproto.simplespace.updateSpace"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space":space,

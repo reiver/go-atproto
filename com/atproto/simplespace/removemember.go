@@ -2,6 +2,7 @@ package simplespace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // RemoveMember removes a member (by DID) from a space.
@@ -13,7 +14,7 @@ func RemoveMember(host string, bearerToken string, space string, did string) err
 
 	const nsid string = "com.atproto.simplespace.removeMember"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space":space,

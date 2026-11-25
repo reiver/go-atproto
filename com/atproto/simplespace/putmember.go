@@ -2,6 +2,7 @@ package simplespace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // PutMember adds a member (by DID) to an ATProto space or updates their read and write access.
@@ -15,7 +16,7 @@ func PutMember(dst any, host string, bearerToken string, space string, did strin
 
 	const nsid string = "com.atproto.simplespace.putMember"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space":space,

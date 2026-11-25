@@ -2,6 +2,7 @@ package simplespace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // CreateSpace creates a new ATProto space.
@@ -18,7 +19,7 @@ func CreateSpace(dst any, host string, bearerToken string, readPolicy string, wr
 
 	const nsid string = "com.atproto.simplespace.createSpace"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"readPolicy":readPolicy,

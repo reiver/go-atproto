@@ -4,6 +4,7 @@ import (
 	"net/url"
 
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // CheckUserAccess asks a ATProto space's managing app whether to authorize a user to read or write.
@@ -116,7 +117,7 @@ func CheckUserAccess(dst any, host string, serviceToken string, req CheckUserAcc
 		query = query + "&clientId=" + url.QueryEscape(req.ClientID)
 	}
 
-	var requestURL string = xrpc.ConstructURL(host, nsid, query).String()
+	var requestURL string = xrpcuri.ConstructURL(host, nsid, query).String()
 
 	return xrpc.AuthorizedQuery(dst, serviceToken, requestURL)
 }

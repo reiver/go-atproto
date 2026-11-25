@@ -2,6 +2,7 @@ package simplespace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // DeleteSpace deletes an existing ATProto space.
@@ -13,7 +14,7 @@ func DeleteSpace(host string, bearerToken string, space string) error {
 
 	const nsid string = "com.atproto.simplespace.deleteSpace"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space":space,

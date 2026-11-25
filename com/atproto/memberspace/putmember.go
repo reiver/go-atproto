@@ -2,6 +2,7 @@ package memberspace
 
 import (
 	"github.com/reiver/go-xrpc"
+	"github.com/reiver/go-xrpcuri"
 )
 
 // PutMember adds a member to the member list of a space governed by the memberspace policy,
@@ -88,7 +89,7 @@ func PutMember(host string, bearerToken string, req PutMemberRequest) error {
 
 	const nsid string = "com.atproto.memberspace.putMember"
 
-	var url string = xrpc.ConstructURL(host, nsid, "").String()
+	var url string = xrpcuri.ConstructURL(host, nsid, "").String()
 
 	var src = map[string]any{
 		"space": req.Space,
